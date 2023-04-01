@@ -44,13 +44,6 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
     
-class product_has_Cart(models.Model):
-    products = models.ForeignKey(Product, on_delete=models.CASCADE)
-    carts = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    kolichestvo = models.IntegerField(blank= False, null = False)
-
-    def __str__(self):
-        return "№{} товар: №{} корзина: {} шт.".format(self.products, self.carts, self.kolichestvo)
 
 class Notebook(Product):
     diagonal = models.CharField(max_length=255, verbose_name= 'Диагональ')
@@ -62,6 +55,15 @@ class Notebook(Product):
     
     def __str__(self):
         return "{} : {}".format(self.Category.name, self.title)
+
+class notebook_has_Cart(models.Model):
+    products = models.ForeignKey(Notebook, on_delete=models.CASCADE)
+    carts = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    kolichestvo = models.IntegerField(blank= False, null = False)
+
+    def __str__(self):
+        return "№{} товар: №{} корзина: {} шт.".format(self.products, self.carts, self.kolichestvo)
+
     
 class SmartPhone(Product):
     diagonal = models.CharField(max_length=255, verbose_name= 'Диагональ')
@@ -76,7 +78,15 @@ class SmartPhone(Product):
 
     def __str__(self):
         return "{} : {}".format(self.Category.name, self.title)
-    
+
+class smartphone_has_Cart(models.Model):
+    products = models.ForeignKey(SmartPhone, on_delete=models.CASCADE)
+    carts = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    kolichestvo = models.IntegerField(blank= False, null = False)
+
+    def __str__(self):
+        return "№{} товар: №{} корзина: {} шт.".format(self.products, self.carts, self.kolichestvo)
+     
 class Order(models.Model):
 
     STATUS_NEW = 'new'
